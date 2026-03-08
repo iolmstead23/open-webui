@@ -1,0 +1,19 @@
+networks:
+  mcpo-net:
+    driver: bridge
+
+services:
+  mcpo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks: [mcpo-net]
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    volumes:
+      - ./config.json:/app/config/config.json:ro
+      - ./obsidian.py:/usr/local/lib/python3.12/site-packages/mcp_obsidian/obsidian.py:ro
+    command: ["--config", "/app/config/config.json"]
+    extra_hosts:
+      - host.docker.internal:host-gateway

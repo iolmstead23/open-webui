@@ -1,13 +1,7 @@
-services:
-  ollama:
-    volumes:
-      - ollama:/root/.ollama
-    container_name: ollama
-    pull_policy: always
-    tty: true
-    restart: unless-stopped
-    image: ollama/ollama:${OLLAMA_DOCKER_TAG-latest}
+include:
+  - path: mcpo/docker-compose.yml
 
+services:
   open-webui:
     build:
       context: .
@@ -17,16 +11,15 @@ services:
     volumes:
       - open-webui:/app/backend/data
     depends_on:
-      - ollama
+      - mcpo
     ports:
       - ${OPEN_WEBUI_PORT-3000}:8080
     environment:
-      - 'OLLAMA_BASE_URL=http://ollama:11434'
+      - 'OLLAMA_BASE_URL=http://host.docker.internal:11434'
       - 'WEBUI_SECRET_KEY='
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
 
 volumes:
-  ollama: {}
   open-webui: {}
