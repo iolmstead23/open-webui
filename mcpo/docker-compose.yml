@@ -14,6 +14,8 @@ services:
     volumes:
       - ./config.json:/app/config/config.json:ro
       - ./obsidian.py:/usr/local/lib/python3.12/site-packages/mcp_obsidian/obsidian.py:ro
+      - ./tools.py:/usr/local/lib/python3.12/site-packages/mcp_obsidian/tools.py:ro
+      - ./server.py:/usr/local/lib/python3.12/site-packages/mcp_obsidian/server.py:ro
     command: ["--config", "/app/config/config.json"]
     extra_hosts:
       - host.docker.internal:host-gateway

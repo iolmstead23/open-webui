@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "eve-wiki": {
+      "type": "sse",
+      "url": "http://host.docker.internal:3010/sse"
+    },
+    "obsidian": {
+      "type": "stdio",
+      "command": "mcp-obsidian",
+      "env": {
+        "OBSIDIAN_API_KEY": "08bd05d13310a75185efef911fd2a9cc6d355150af65406ce54d376e4907f4d4",
+        "OBSIDIAN_HOST": "host.docker.internal",
+        "OBSIDIAN_PORT": "27124",
+        "OBSIDIAN_PROTOCOL": "https"
+      }
+    }
+  }
+}

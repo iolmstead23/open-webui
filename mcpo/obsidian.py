@@ -52,7 +52,7 @@ class Obsidian():
 
 
     def list_files_in_dir(self, dirpath: str) -> Any:
-        url = f"{self.get_base_url()}/vault/{dirpath}/"
+        url = f"{self.get_base_url()}/vault/{dirpath.rstrip('/')}/"
 
         def call_fn():
             response = requests.get(url, headers=self._get_headers(), verify=self.verify_ssl, timeout=self.timeout)
@@ -184,6 +184,16 @@ class Obsidian():
             )
             response.raise_for_status()
 
+            return response.json()
+
+        return self._safe_call(call_fn)
+
+    def get_tags(self) -> Any:
+        url = f"{self.get_base_url()}/tags/"
+
+        def call_fn():
+            response = requests.get(url, headers=self._get_headers(), verify=self.verify_ssl, timeout=self.timeout)
+            response.raise_for_status()
             return response.json()
 
         return self._safe_call(call_fn)
