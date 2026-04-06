@@ -22,6 +22,8 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
+    networks:
+      - n8n_net
 
   pipelines:
     image: ghcr.io/open-webui/pipelines:main
@@ -40,6 +42,12 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
+    networks:
+      - n8n_net
 
 volumes:
   open-webui: {}
+
+networks:
+  n8n_net:
+    external: true
